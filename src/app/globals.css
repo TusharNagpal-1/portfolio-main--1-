@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* LIGHT MODE — brighter palette with white background and dark text */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #f8fafc;
+  --primary: #10b981;
+  --primary-hover: #0f766e;
+  --secondary: #c2410c;
+  --accent: #8b5cf6;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  
+  /* Glassmorphism Variables */
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-hover: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(148, 163, 184, 0.22);
+  --glass-border-hover: rgba(148, 163, 184, 0.38);
+  --glass-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+  /* DARK MODE TERMINAL THEME */
+  --background: #080C14;
+  --foreground: #ECFDF5;
+  --card: #0E131F;
+  --primary: #10B981;
+  --primary-hover: #34D399;
+  --secondary: #F59E0B;
+  --accent: #A78BFA;
+  --muted: #64748B;
+  --border: #1E293B;
+  
+  /* Glassmorphism Variables */
+  --glass: rgba(14, 19, 31, 0.7);
+  --glass-hover: rgba(14, 19, 31, 0.9);
+  --glass-border: rgba(16, 185, 129, 0.12);
+  --glass-border-hover: rgba(16, 185, 129, 0.3);
+  --glass-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(16, 185, 129, 0.02);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ===== GLOBAL RESET & BASE ===== */
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono, monospace);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono, monospace);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--primary), var(--secondary));
+  border-radius: 3px;
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background: rgba(16, 185, 129, 0.25);
+  color: var(--foreground);
+}
+
+/* ===== GLASS CARD ===== */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-hover:hover {
+  background: var(--glass-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--glass-shadow);
+}
+
+/* ===== GLOW EFFECTS ===== */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15),
+              0 0 60px rgba(16, 185, 129, 0.08);
+}
+
+.glow-text {
+  text-shadow: 0 0 40px rgba(16, 185, 129, 0.3);
+}
+
+/* ===== GRADIENT TEXT ===== */
+.gradient-text {
+  background: linear-gradient(135deg, #10B981, #34D399, #A78BFA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== GRADIENT BORDER ===== */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(167, 139, 250, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ===== CURSOR TYPING ===== */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ===== SECTION SPACING ===== */
+section {
+  scroll-margin-top: 80px;
+}
+
+/* ===== 3D / PERSPECTIVE ===== */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* ===== PARTICLE CANVAS ===== */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== THREE.JS CANVAS PERFORMANCE ===== */
+canvas {
+  display: block;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* ===== SMOOTH GRADIENT TRANSITIONS ===== */
+.gradient-aurora {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.08) 0%,
+    rgba(167, 139, 250, 0.06) 40%,
+    rgba(251, 191, 36, 0.04) 70%,
+    transparent 100%
+  );
+}
